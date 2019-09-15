@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "created";
+}
+
+<h2>created</h2>
+
+<div class="row">
+
+    <div class="col-md-10">
+
+        @using (Html.BeginForm("created", "Auction", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {
+
+            <lable>
+                Name
+            </lable>
+            <input name="name" />
+
+            <br />
+
+            <lable>
+                email
+            </lable>
+            <input name="email" />
+
+            <br />
+
+            <lable>
+                password
+            </lable>
+            <input name="password" />
+
+            <input type="file" name="UserImagefile" />
+            <br />
+            <button> save</button>
+        }
+
+    </div>
+
+</div>
+

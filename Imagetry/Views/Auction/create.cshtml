@@ -1,0 +1,171 @@
+﻿<br /><br /><br />
+
+@model Imagetry.tbl_vinay
+
+@{
+    ViewBag.Title = "create";
+}
+
+<head>
+    <link href="~/CostumStyleSheet/CreateStyleSheet.css" rel="stylesheet" />
+</head>
+
+
+@using (Html.BeginForm("create", "Auction", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="user-profile-image">
+
+                    <input type="file" class="hidden" id="BrowseImage" accept="image/*" name="UserImagefile" />
+
+                    @*<img src="@Url.Content(Model.ImagePath)" class="img-responsive" id="UserImage" />*@
+
+                    <img src="~/Content/Images/No_Image_Available.jpg" class="img-responsive" id="UserImage" />
+
+                    <p class="image-desc text-center">Allowed image Size: 3500*2933</p>
+
+                    <div class="upload-photo">
+                        <img src="~/Content/Images/download.jfif" class="img-responsive" />
+                    </div>
+
+
+                    <div class="remove-Photo">
+                        <span class="glyphicon glyphicon-remove" style="color:red;"></span>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="col-md-8">
+
+                <div class="form-horizontal">
+                    <h4>tbl_vinay</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.HiddenFor(model => model.id)
+                    @Html.HiddenFor(model => model.ImagePath)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+<script>
+    $('#UserImage').click(function () {
+        UploadclickEvent();
+    })
+
+    $('.upload-photo').click(function () {
+        UploadclickEvent();
+    })
+
+    function UploadclickEvent() {
+        $('#BrowseImage').trigger('click');
+    }
+
+    //Select & Upload Image
+    $('#BrowseImage').change(function () {
+
+        var File = this.files;
+
+
+        if (File && File[0]) {
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(File[0]);
+
+            fileReader.onload = function (x) {
+
+                var image = new Image;
+                image.src = x.target.result;
+
+
+                image.onload = function () {
+
+                    //var width = this.width;
+                    //var height = this.height;
+                    //var type = File[0].type;
+
+                    //if (width == "1968" && height == "4160")
+                    //{
+                    //    //$('#UserImage').attr('src', x.target.result);
+                    //}
+                    //else
+                    //{
+                    //    $('.image-desc').css("color", "red");
+                    //}
+
+                    //alert("width: " + width + ", height:" + height + ",type: " + type);
+
+
+                    $('#UserImage').attr('src', x.target.result);
+                }
+
+
+            }
+
+        }
+    });
+
+    $('.remove-Photo').click(function () {
+
+        $('#UserImage').attr('src', "/Content/Images/No_Image_Available.jpg");
+
+    });
+
+
+
+</script>
